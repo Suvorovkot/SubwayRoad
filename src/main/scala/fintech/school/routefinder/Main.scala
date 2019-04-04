@@ -14,10 +14,16 @@ object Main extends App{
       .addEdge(Edge(3,4,6.0))
       .addEdge(Edge(4,5,9.0))
 
+    val list1 = new EdgeList()
+      .addEdge(Edge(0,1,7.0))
+      .addEdge(Edge(1,2,10.0))
+      .addEdge(Edge(3,4,6.0))
+      .addEdge(Edge(4,5,9.0))
 
 
-    println(RouteMaker.calculate(list,0).pathTo(1))
-    println(RouteMaker.calculate(list,0).pathTo(5))
-    println(RouteMaker.calculate(list,0).pathTo(3))
+
+//    println(RouteMaker.calculate(list,0).distToV(3))
+//    println(RouteMaker.calculate(list,0).pathTo(5))
+//    println(RouteMaker.calculate(list,0).pathTo(3))
   }
 }
