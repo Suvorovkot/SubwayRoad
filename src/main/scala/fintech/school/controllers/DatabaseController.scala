@@ -5,11 +5,9 @@ import fintech.school.routefinder._
 import scala.slick.driver.PostgresDriver.simple._
 
 class DatabaseController {
-  val dbConnectionUrl = "jdbc:postgresql://localhost/postgres?user=postgres&password=postgres"
+  val dbConnectionUrl = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres"
   Database.forURL(dbConnectionUrl, driver = "org.postgresql.Driver") withSession {
     implicit session =>
-      val spans = TableQuery[Span]
-      val transitions = TableQuery[Transitions]
 
 //            // SELECT * FROM spans
 //            spans.list foreach { row =>
@@ -20,14 +18,17 @@ class DatabaseController {
       //      spans.filter(_.fromStationId === "1").list foreach { row =>
       //        println("Span which fromStationId is '1' has id "+row._1 )
       //      }
+//      val spans = TableQuery[Span]
 //      val edgeList = new EdgeList()
 //      spans.list foreach { row =>
 //        edgeList.addEdge(Edge(row._1, row._2, row._3))
 //      }
 //      println(edgeList)
-
-      val edgeList = new EdgeList()
-      val l = transitions.list.foldLeft(edgeList){case (list, element) => list.addEdge(Edge(element.fromStationId,element.toStationId,element.value))}
-      println(l.map)
+      val trans = TableQuery[Transition]
+      val transList = new EdgeList()
+      trans.list foreach { row =>
+        transList.addEdge(Edge(row._1, row._2, row._3))
+      }
+      println(transList)
   }
 }
