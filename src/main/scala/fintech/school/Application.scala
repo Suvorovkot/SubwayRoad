@@ -1,5 +1,6 @@
 package fintech.school
 
+import fintech.school.controllers.DatabaseController
 import org.json4s.jackson.Serialization
 import org.json4s.DefaultFormats
 
@@ -8,6 +9,6 @@ object Application {
   implicit val format = DefaultFormats
 
   def main(args: Array[String]): Unit = {
-
+    new DatabaseController
   }
 }
