@@ -30,8 +30,7 @@ class DatabaseController {
         spans.list.foldLeft(edgeList){case (list, element) => list.addEdge(Edge(element.fromStationId,element.toStationId,element.value))}
       }
 
-//      val edgeList = new EdgeList()
-//      val l = transitions.list.foldLeft(edgeList){case (list, element) => list.addEdge(Edge(element.fromStationId,element.toStationId,element.value))}
-//      println(l.map)
+
+
   }
 }
