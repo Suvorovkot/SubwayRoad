@@ -9,6 +9,7 @@ object Application {
   implicit val format = DefaultFormats
 
   def main(args: Array[String]): Unit = {
-    new DatabaseController
+    val db = new DatabaseController
+    println(db.getSpans.map)
   }
 }
