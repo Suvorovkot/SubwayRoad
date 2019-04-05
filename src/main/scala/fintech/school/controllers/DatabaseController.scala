@@ -27,6 +27,21 @@ class DatabaseController {
       }
     }
   }
-
+  def getStationById(stId: Int): Station = {
+    db withSession { implicit session =>
+      val stations = TableQuery[Stations]
+      stations.filter(_.id === stId).list.head
+    }
+  }
+  def getStationByName(stName: String): Station = {
+    db withSession { implicit session =>
+      val stations = TableQuery[Stations]
+      stations.filter(_.name === stName).list.head
+    }
+  }
+  //      // SELECT * FROM spans WHERE fromStationId = '1'
+  //      spans.filter(_.fromStationId === "1").list foreach { row =>
+  //        println("Span which fromStationId is '1' has id "+row._1 )
+  //      }
 
 }
