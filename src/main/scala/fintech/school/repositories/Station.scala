@@ -11,19 +11,27 @@ class Station(implicit executionContext: ExecutionContext) extends Repository[St
 
   override def getAll(): Future[List[Stations]] = ???
 
-  override def getById(stId: Int): Future[Option[Stations]] = Future(Option{
+  override def getById(stId: Int): Future[Option[Stations]] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      stations.filter(_.id === stId).list.head
+      val st = stations.filter(_.id === stId).list.head
+      st match {
+        case null => None
+        case _ => Option(st)
+      }
     }
-  })
+  }
 
-  override def getByName(stName: String): Future[Option[Stations]] = Future(Option {
+  override def getByName(stName: String): Future[Option[Stations]] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      stations.filter(_.name === stName).list.head
+      val st = stations.filter(_.name === stName).list.head
+      st match {
+        case null => None
+        case _ => Option(st)
+      }
     }
-  })
+  }
 
   override def create(params: String): Future[Stations] = ???
 

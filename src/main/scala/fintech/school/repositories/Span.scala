@@ -2,8 +2,6 @@ package fintech.school.repositories
 
 import fintech.school.controllers.DatabaseConnection
 import fintech.school.models._
-import fintech.school.routefinder._
-
 import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
