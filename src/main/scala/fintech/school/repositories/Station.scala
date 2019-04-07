@@ -6,7 +6,7 @@ import fintech.school.models._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
-class Station (implicit executionContext: ExecutionContext) extends Repository[Stations, String] {
+class Station(implicit executionContext: ExecutionContext) extends Repository[Stations, String] {
   val dataBase = new DatabaseConnection
 
   override def getAll(): Future[List[Stations]] = ???
