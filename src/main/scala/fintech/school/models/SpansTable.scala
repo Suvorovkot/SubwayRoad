@@ -2,12 +2,12 @@ package fintech.school.models
 
 import scala.slick.driver.PostgresDriver.simple._
 
-class Transitions(tag: Tag) extends Table[Transition](tag, "Transition") {
+class SpansTable(tag: Tag) extends Table[Spans](tag, "Span") {
   def fromStationId = column[Int]("From_id")
 
   def toStationId = column[Int]("To_id")
 
   def time = column[Int]("value")
 
-  def * = (fromStationId, toStationId, time) <> (Transition.tupled, Transition.unapply)
+  def * = (fromStationId, toStationId, time) <> (Spans.tupled, Spans.unapply)
 }

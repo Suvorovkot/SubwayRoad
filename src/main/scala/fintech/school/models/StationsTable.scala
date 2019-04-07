@@ -3,7 +3,7 @@ package fintech.school.models
 import scala.slick.driver.PostgresDriver.simple._
 
 
-class Stations(tag: Tag) extends Table[Station](tag, "Station") {
+class StationsTable(tag: Tag) extends Table[Stations](tag, "Station") {
   def lineId = column[Int]("Line_id")
 
   def name = column[String]("name")
@@ -16,5 +16,5 @@ class Stations(tag: Tag) extends Table[Station](tag, "Station") {
 
   def id = column[Int]("id")
 
-  def * = (lineId, name, status, startWork, endWork, id) <> (Station.tupled, Station.unapply)
+  def * = (lineId, name, status, startWork, endWork, id) <> (Stations.tupled, Stations.unapply)
 }
