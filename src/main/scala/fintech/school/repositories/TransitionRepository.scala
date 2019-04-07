@@ -7,14 +7,14 @@ import fintech.school.routefinder._
 import scala.slick.driver.PostgresDriver.simple._
 
 
-trait SpanRepository {
+trait TransitionRepository {
   val dataBase = new DatabaseConnection
 
   def getAll: EdgeList = {
     dataBase.db withSession { implicit session =>
-      val spans = TableQuery[Spans]
+      val transitions = TableQuery[Transitions]
       val edgeList = new EdgeList()
-      spans.list.foldLeft(edgeList) {
+      transitions.list.foldLeft(edgeList) {
         case (list, element) => list.addEdge(Edge(element.fromStationId, element.toStationId, element.value))
       }
     }
