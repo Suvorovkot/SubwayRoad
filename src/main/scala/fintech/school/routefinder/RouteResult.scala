@@ -10,7 +10,7 @@ class RouteResult(edgeTo: Seq[Option[Edge]], distTo: Seq[Double]) {
     def go(list: List[Edge], vv: Int): List[Edge] =
       edgeTo(vv) match {
         case Some(e) => go(e +: list, e.from)
-        case None => list
+        case None    => list
       }
 
     if (!hasPath(v)) Seq() else go(List(), v)
