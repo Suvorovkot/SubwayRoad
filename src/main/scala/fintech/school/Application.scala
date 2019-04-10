@@ -9,7 +9,6 @@ object Application {
   implicit val format = DefaultFormats
 
   def main(args: Array[String]): Unit = {
-
-    //println(StationRepository.getById(1))
+    println("Success")
   }
 }

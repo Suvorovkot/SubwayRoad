@@ -1,8 +1,18 @@
+enablePlugins(JavaAppPackaging)
+
 name := "SubwayRoad"
 
 version := "0.1"
 
 scalaVersion := "2.12.8"
+
+dockerBaseImage := "openjdk:latest"
+
+import com.typesafe.sbt.packager.docker._
+dockerCommands ++= Seq(
+  Cmd("USER", "root"),
+  ExecCmd("RUN", "apk", "add", "--no-cache", "bash")
+)
 
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.5" % "test",
