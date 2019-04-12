@@ -1,18 +1,18 @@
 package fintech.school.routes
 
 import akka.http.scaladsl.server.Directives._
-import fintech.school.models.Spans
-import fintech.school.repositories.Span
+import fintech.school.models.Span
+import fintech.school.repositories.SpanRepository
 import fintech.school.tools.Json4sSupport._
 
-class SpanRoutes(spanRepository: Span) {
+class SpanRoutes(spanRepository: SpanRepository) {
   def routes = {
     path("spans"){
       get {
         complete(spanRepository.getAll)
       } ~
       post {
-        entity(as[Spans]) { params =>
+        entity(as[Span]) { params =>
           complete(spanRepository.create(params))
         }
       }
@@ -22,7 +22,7 @@ class SpanRoutes(spanRepository: Span) {
         complete(spanRepository.getById(id))
       } ~
       patch {
-        entity(as[Spans]) { params =>
+        entity(as[Span]) { params =>
           complete(spanRepository.update(id,params))
         }
       }
