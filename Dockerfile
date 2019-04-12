@@ -1,5 +1,8 @@
-FROM hseeberger/scala-sbt
-RUN mkdir -p /SubwayRoad
-WORKDIR /SubwayRoad
-COPY . /SubwayRoad
-CMD sbt run
+FROM openjdk:jre-alpine
+WORKDIR /opt/docker
+ADD --chown=daemon:daemon opt /opt
+USER daemon
+ENTRYPOINT ["/opt/docker/bin/subwayroad"]
+CMD []
+USER root
+RUN ["apk", "add", "--no-cache", "bash"]
