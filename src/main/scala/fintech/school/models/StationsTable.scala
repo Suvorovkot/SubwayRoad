@@ -10,9 +10,9 @@ class StationsTable(tag: Tag) extends Table[Station](tag, "Station") {
 
   def status = column[Int]("status")
 
-  def startWork = column[Int]("startWork")
+  def startWork = column[String]("startWork")
 
-  def endWork = column[Int]("endWork")
+  def endWork = column[String]("endWork")
 
   def id = column[Int]("id")
 

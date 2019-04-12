@@ -7,7 +7,7 @@ case class Span(fromStationId: Int, toStationId: Int, value: Int)
 
 case class Transition(fromStationId: Int, toStationId: Int, value: Int)
 
-case class Station(lineId: Int, name: String, status: Int, startWork: Int, endWork: Int, id: Int)
+case class Station(lineId: Int, name: String, status: Int, startWork: String, endWork: String, id: Int)
 
 case class Line(metroId: Int, name: String, number: Int, colour: String, id: Int)
 
