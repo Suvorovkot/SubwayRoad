@@ -1,4 +1,4 @@
-enablePlugins(JavaAppPackaging)
+enablePlugins(JavaAppPackaging, DockerPlugin)
 
 name := "SubwayRoad"
 
@@ -6,7 +6,7 @@ version := "0.1"
 
 scalaVersion := "2.12.8"
 
-dockerBaseImage := "openjdk:latest"
+dockerBaseImage := "openjdk:jre-alpine"
 
 import com.typesafe.sbt.packager.docker._
 dockerCommands ++= Seq(

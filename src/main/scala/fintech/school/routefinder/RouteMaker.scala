@@ -5,7 +5,7 @@ import scala.collection.mutable
 object RouteMaker {
 
   def calculate(V: EdgeList, startPoint: Int): RouteResult = {
-    val size = V.map.size
+    val size = V.map.size + 1
 
     val edgeTo = mutable.ArrayBuffer.fill[Option[Edge]](size)(None)
     val distTo = mutable.ArrayBuffer.fill(size)(Double.PositiveInfinity)
@@ -16,6 +16,7 @@ object RouteMaker {
     val queue = mutable.PriorityQueue[(Int, Double)](sourceDist)(sortByWeight)
 
     while (queue.nonEmpty) {
+
       val (minDestV, _) = queue.dequeue()
       val edges = V.map.getOrElse(minDestV, List.empty)
 
