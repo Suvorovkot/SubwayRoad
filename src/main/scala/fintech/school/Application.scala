@@ -6,6 +6,7 @@ import org.json4s.DefaultFormats
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
+import fintech.school.routefinder.Service
 import routes.Router
 
 import scala.concurrent.{Await, Future}
@@ -18,12 +19,6 @@ object Application {
   implicit val executionContext                = actor.dispatcher
 
   def main(args: Array[String]): Unit = {
-
-//    val span = new Span()
-//    span.getAll.onComplete{
-//      case Success(n) => println(n)
-//      case Failure(exception) => println(exception)
-//    }
     val router = new Router
 
     Http().bindAndHandle(router.routes, "0.0.0.0", 8080).onComplete {
@@ -31,5 +26,7 @@ object Application {
         println(s"Server is running at ${b.localAddress.getHostName}:${b.localAddress.getPort}")
       case Failure(e) => println(s"Could not start application: {}", e.getMessage)
     }
+//    val service = new Service()
+//    println(service.getRoute("Obvodhy Kanal", "Ploshad Alexandra Nevskogo 2"))
   }
 }
