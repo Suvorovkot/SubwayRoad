@@ -42,7 +42,7 @@ class Service(implicit executionContext: ExecutionContext) {
     RouteResponse(list, result.distToV(toId))
   }
   private def isTransition(from: Int, to: Int): Boolean =
-    transitionList.filter(elem => elem.fromStationId == from && elem.toStationId == to).nonEmpty
+    transitionList.filter(elem => elem.fromStationId == from && elem.toStationId == to ||  elem.toStationId == from && elem.fromStationId == to).nonEmpty
 
   private def isSpan(from: Int, to: Int): Boolean =
     spanList.filter(elem => elem.fromStationId == from && elem.toStationId == to).nonEmpty
