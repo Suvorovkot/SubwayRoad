@@ -6,7 +6,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
 
-class TransitionRepository(implicit executionContext: ExecutionContext) extends Repository[Transition] {
+class TransitionRepository(implicit executionContext: ExecutionContext){
   val dataBase = new DatabaseConnection
 
   def getAll: Future[List[Transition]] = Future {
@@ -16,13 +16,11 @@ class TransitionRepository(implicit executionContext: ExecutionContext) extends 
     }
   }
 
-  override def getById(id: Int): Future[Option[Transition]] = ???
+  def getById(id: Int): Future[List[Transition]] = ??? // выдавать как совпадения по fromId, так и по byId
 
-  override def getByName(name: String): Future[Option[Transition]] = ???
+  def create(params: Transition): Future[Transition] = ???
 
-  override def create(params: Transition): Future[Transition] = ???
+  def update(params: Transition): Future[Transition] = ??? // найти по двум id и обновить значение
 
-  override def update(id: Int, params: Transition): Future[Option[Transition]] = ???
-
-  override def delete(id: Int): Future[Boolean] = ???
+  def delete(params: Transition): Future[Boolean] = ???
 }

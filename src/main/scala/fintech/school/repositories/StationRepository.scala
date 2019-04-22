@@ -6,12 +6,12 @@ import fintech.school.models._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
-class StationRepository(implicit executionContext: ExecutionContext) extends Repository[Station] {
+class StationRepository(implicit executionContext: ExecutionContext){
   val dataBase = new DatabaseConnection
 
-  override def getAll(): Future[List[Station]] = ???
+  def getAll(): Future[List[Station]] = ???
 
-  override def getById(stId: Int): Future[Option[Station]] = Future {
+  def getById(stId: Int): Future[Option[Station]] = Future { // убери Option
     dataBase.db withSession { implicit session ⇒
       val stations = TableQuery[StationsTable]
       val st       = stations.filter(_.id === stId).list.head
@@ -22,7 +22,7 @@ class StationRepository(implicit executionContext: ExecutionContext) extends Rep
     }
   }
 
-  override def getByName(stName: String): Future[Option[Station]] = Future {
+  def getByName(stName: String): Future[Option[Station]] = Future { // убери Option
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
       val st       = stations.filter(_.name === stName).list.head
@@ -33,9 +33,9 @@ class StationRepository(implicit executionContext: ExecutionContext) extends Rep
     }
   }
 
-  override def create(params: Station): Future[Station] = ???
+  def create(params: Station): Future[Station] = ???
 
-  override def update(id: Int, params: Station): Future[Option[Station]] = ???
+  def update(id: Int, params: Station): Future[Station] = ???
 
-  override def delete(id: Int): Future[Boolean] = ???
+  def delete(id: Int): Future[Boolean] = ???
 }

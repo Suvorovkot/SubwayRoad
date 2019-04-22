@@ -6,24 +6,21 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
 
-class SpanRepository(implicit executionContext: ExecutionContext) extends Repository[Span] {
+class SpanRepository(implicit executionContext: ExecutionContext){
   val dataBase = new DatabaseConnection
 
-  override def getAll: Future[List[Span]] = Future {
+  def getAll: Future[List[Span]] = Future {
     dataBase.db withSession { implicit session =>
       val spans = TableQuery[SpansTable]
       spans.list
     }
   }
 
-  override def getById(id: Int): Future[Option[Span]] = ???
+  def getById(id: Int): Future[List[Span]] = ??? // выдавать как совпадения по fromId, так и по byId
 
-  override def getByName(name: String): Future[Option[Span]] = ???
+  def create(params: Transition): Future[Span] = ???
 
-  override def create(params: Span): Future[Span] = ???
+  def update(params: Transition): Future[Span] = ??? // найти по двум id и обновить значение
 
-  override def update(id: Int, params: Span): Future[Option[Span]] = ???
-
-  override def delete(id: Int): Future[Boolean] = ???
-
+  def delete(params: Transition): Future[Span] = ???
 }
