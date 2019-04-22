@@ -5,7 +5,7 @@ import fintech.school.models.{Span, Station, Transition}
 import fintech.school.repositories.{SpanRepository, StationRepository, TransitionRepository}
 import org.postgresql.util.PSQLException
 
-import scala.concurrent.{Await, ExecutionContext}
+import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 class Service(implicit executionContext: ExecutionContext) {
@@ -42,9 +42,5 @@ class Service(implicit executionContext: ExecutionContext) {
     RouteResponse(list, result.distToV(toId))
   }
   private def isTransition(from: Int, to: Int): Boolean =
-    transitionList.filter(elem => elem.fromStationId == from && elem.toStationId == to).nonEmpty
-
-  private def isSpan(from: Int, to: Int): Boolean =
-    spanList.filter(elem => elem.fromStationId == from && elem.toStationId == to).nonEmpty
-
+    transitionList.exists(elem => elem.fromStationId == from && elem.toStationId == to || elem.toStationId == from && elem.fromStationId == to)
 }

@@ -23,7 +23,7 @@ class SpanRoutes(spanRepository: SpanRepository) {
         } ~
           patch {
             entity(as[Span]) { params =>
-              complete(spanRepository.update(id, params))
+              complete(spanRepository.update(params))
             }
           }
       }
