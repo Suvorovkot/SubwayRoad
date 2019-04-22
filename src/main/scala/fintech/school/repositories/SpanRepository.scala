@@ -18,9 +18,9 @@ class SpanRepository(implicit executionContext: ExecutionContext){
 
   def getById(id: Int): Future[List[Span]] = ??? // выдавать как совпадения по fromId, так и по byId
 
-  def create(params: Transition): Future[Span] = ???
+  def create(params: Span): Future[Span] = ???
 
-  def update(params: Transition): Future[Span] = ??? // найти по двум id и обновить значение
+  def update(params: Span): Future[Span] = ??? // найти по двум id и обновить значение
 
-  def delete(params: Transition): Future[Span] = ???
+  def delete(params: Span): Future[Span] = ???
 }
