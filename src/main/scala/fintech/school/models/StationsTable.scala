@@ -1,5 +1,7 @@
 package fintech.school.models
 
+import java.sql.Timestamp
+
 import scala.slick.driver.PostgresDriver.simple._
 
 
@@ -10,9 +12,9 @@ class StationsTable(tag: Tag) extends Table[Station](tag, "Station") {
 
   def status = column[Int]("status")
 
-  def startWork = column[String]("startWork")
+  def startWork = column[Timestamp]("startWork")
 
-  def endWork = column[String]("endWork")
+  def endWork = column[Timestamp]("endWork")
 
   def id = column[Int]("id")
 
