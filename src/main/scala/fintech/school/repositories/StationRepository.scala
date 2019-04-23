@@ -6,36 +6,51 @@ import fintech.school.models._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
-class StationRepository(implicit executionContext: ExecutionContext){
-  val dataBase = new DatabaseConnection
+class StationRepository(city: String)(implicit executionContext: ExecutionContext) {
+  val dataBase = new DatabaseConnection(city)
 
-  def getAll(): Future[List[Station]] = ???
-
-  def getById(stId: Int): Future[Option[Station]] = Future { // убери Option
-    dataBase.db withSession { implicit session ⇒
-      val stations = TableQuery[StationsTable]
-      val st       = stations.filter(_.id === stId).list.head
-      st match {
-        case null => None
-        case _    => Option(st)
-      }
-    }
-  }
-
-  def getByName(stName: String): Future[Option[Station]] = Future { // убери Option
+  def getAll(): Future[List[Station]] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      val st       = stations.filter(_.name === stName).list.head
-      st match {
-        case null => None
-        case _    => Option(st)
-      }
+      stations.list
     }
   }
 
-  def create(params: Station): Future[Station] = ???
+  def getById(stId: Int): Future[Station] = Future {
+    dataBase.db withSession { implicit session =>
+      val stations = TableQuery[StationsTable]
+      stations.filter(_.id === stId).list.head
+    }
+  }
 
-  def update(id: Int, params: Station): Future[Station] = ???
+  def getByName(stName: String): Future[Station] = Future {
+    dataBase.db withSession { implicit session =>
+      val stations = TableQuery[StationsTable]
+      stations.filter(_.name === stName).list.head
+    }
+  }
 
-  def delete(id: Int): Future[Boolean] = ???
+  def create(params: Station): Future[String] = Future {
+    dataBase.db withSession { implicit session =>
+      val stations = TableQuery[StationsTable]
+      val n        = stations.insert(params)
+      s"$n row inserted"
+    }
+  }
+
+  def update(stId: Int, params: Station): Future[String] = Future {
+    dataBase.db withSession { implicit session =>
+      val stations = TableQuery[StationsTable]
+      val n        = stations.filter(_.id === stId).update(params)
+      s"$n row updated"
+    }
+  }
+
+  def delete(stId: Int): Future[String] = Future {
+    dataBase.db withSession { implicit session =>
+      val stations = TableQuery[StationsTable]
+      val n = stations.filter(_.id === stId).delete
+      s"$n row deleted"
+    }
+  }
 }
