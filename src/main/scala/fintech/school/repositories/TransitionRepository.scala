@@ -16,11 +16,33 @@ class TransitionRepository(implicit executionContext: ExecutionContext){
     }
   }
 
-  def getById(id: Int): Future[List[Transition]] = ??? // выдавать как совпадения по fromId, так и по byId
+  def getById(spId: Int): Future[List[Transition]] = Future {
+    dataBase.db withSession { implicit session =>
+      val transitions = TableQuery[TransitionsTable]
+      val from = transitions.filter(_.fromStationId === spId).list
+      val to = transitions.filter(_.toStationId === spId).list
+      to ++ from
+    }
+  }
 
-  def create(params: Transition): Future[Transition] = ???
+  def create(params: Transition): Future[Boolean] = Future {
+    dataBase.db withSession { implicit session =>
+      val transitions = TableQuery[TransitionsTable]
+      transitions.insert(params) == 1
+    }
+  }
 
-  def update(params: Transition): Future[Transition] = ??? // найти по двум id и обновить значение
+  def update(params: Transition): Future[Boolean] = Future {
+    dataBase.db withSession { implicit session =>
+      val transitions = TableQuery[TransitionsTable]
+      transitions.filter(_.fromStationId === params.fromStationId).filter(_.toStationId === params.toStationId).update(params) == 1
+    }
+  }
 
-  def delete(params: Transition): Future[Boolean] = ???
+  def delete(params: Transition): Future[Boolean] = Future {
+    dataBase.db withSession { implicit session =>
+      val transitions = TableQuery[TransitionsTable]
+      transitions.filter(_.fromStationId === params.fromStationId).filter(_.toStationId === params.toStationId).delete == 1
+    }
+  }
 }
