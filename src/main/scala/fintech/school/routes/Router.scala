@@ -7,13 +7,15 @@ import fintech.school.routefinder.Service
 import scala.concurrent.ExecutionContext
 
 class Router(implicit executionContext: ExecutionContext) {
-  val spanRoutes   = new SpanRoutes(new SpanRepository)
-  val serviceRoute = new ServiceRoute(new Service)
+  private val piter = "StPetersburg"
+  private val volgograd = "Volgograd"
 
   val routes = {
-    pathPrefix("metro") {
-      spanRoutes.routes ~ serviceRoute.routes
-    }
+    pathPrefix(piter) {
+      new SpanRoute(piter).routes ~ new StationRoute(piter).routes ~ new TransitionRoute(piter).routes ~ new WorkLoadRoute(piter).routes ~ new ServiceRoute(piter).routes
+    } ~
+      pathPrefix(volgograd) {
+        new SpanRoute(volgograd).routes ~ new StationRoute(volgograd).routes ~ new TransitionRoute(volgograd).routes ~ new WorkLoadRoute(volgograd).routes ~ new ServiceRoute(volgograd).routes
+      }
   }
-
 }
