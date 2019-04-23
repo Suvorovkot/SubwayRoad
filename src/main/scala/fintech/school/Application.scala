@@ -26,7 +26,5 @@ object Application {
         println(s"Server is running at ${b.localAddress.getHostName}:${b.localAddress.getPort}")
       case Failure(e) => println(s"Could not start application: {}", e.getMessage)
     }
-//    val service = new Service()
-//    println(service.getRoute("Obvodhy Kanal", "Ploshad Alexandra Nevskogo 2"))
   }
 }

@@ -8,7 +8,7 @@ import fintech.school.models._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
-class WorkLoadRepository(city: String)(implicit executionContext: ExecutionContext) {
+class WorkloadRepository(city: String)(implicit executionContext: ExecutionContext) {
   val dataBase = new DatabaseConnection(city)
 
   def getById(wdLineId: Int): Future[Workload] = Future {
