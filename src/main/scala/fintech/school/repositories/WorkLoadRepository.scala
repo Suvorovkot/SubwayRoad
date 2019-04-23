@@ -1,6 +1,6 @@
 package fintech.school.repositories
 
-import java.sql.Timestamp
+import java.sql.Time
 
 import fintech.school.controllers.DatabaseConnection
 import fintech.school.models._
@@ -18,7 +18,7 @@ class WorkLoadRepository(city: String)(implicit executionContext: ExecutionConte
     }
   }
 
-  def getWithFilters(wdLineId: Int, wdTime: Timestamp): Future[Workload] = Future {
+  def getWithFilters(wdLineId: Int, wdTime: Time): Future[Workload] = Future {
     dataBase.db withSession { implicit session ⇒
       val workloads = TableQuery[WorkloadsTable]
       workloads
@@ -48,7 +48,7 @@ class WorkLoadRepository(city: String)(implicit executionContext: ExecutionConte
     }
   }
 
-  def delete(wdLineId: Int, wdTime: Timestamp): Future[String] = Future {
+  def delete(wdLineId: Int, wdTime: Time): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val workloads = TableQuery[WorkloadsTable]
       val n = workloads
