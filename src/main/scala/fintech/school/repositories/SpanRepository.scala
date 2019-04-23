@@ -5,8 +5,7 @@ import fintech.school.models._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
-
-class SpanRepository(city: String)(implicit executionContext: ExecutionContext){
+class SpanRepository(city: String)(implicit executionContext: ExecutionContext) {
   val dataBase = new DatabaseConnection(city)
 
   def getAll: Future[List[Span]] = Future {
@@ -19,30 +18,39 @@ class SpanRepository(city: String)(implicit executionContext: ExecutionContext){
   def getById(spId: Int): Future[List[Span]] = Future {
     dataBase.db withSession { implicit session =>
       val spans = TableQuery[SpansTable]
-      val from = spans.filter(_.fromStationId === spId).list
-      val to = spans.filter(_.toStationId === spId).list
+      val from  = spans.filter(_.fromStationId === spId).list
+      val to    = spans.filter(_.toStationId === spId).list
       to ++ from
     }
   }
 
-  def create(params: Span): Future[Boolean] = Future {
+  def create(params: Span): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val spans = TableQuery[SpansTable]
-      spans.insert(params) == 1
+      val n     = spans.insert(params)
+      s"$n row inserted"
     }
   }
 
-  def update(params: Span): Future[Boolean] = Future {
+  def update(params: Span): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val spans = TableQuery[SpansTable]
-      spans.filter(_.fromStationId === params.fromStationId).filter(_.toStationId === params.toStationId).update(params) == 1
+      val n = spans
+        .filter(_.fromStationId === params.fromStationId)
+        .filter(_.toStationId === params.toStationId)
+        .update(params)
+      s"$n row updated"
     }
   }
 
-  def delete(params: Span): Future[Boolean] = Future {
+  def delete(params: Span): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val spans = TableQuery[SpansTable]
-      spans.filter(_.fromStationId === params.fromStationId).filter(_.toStationId === params.toStationId).delete == 1
+      val n = spans
+        .filter(_.fromStationId === params.fromStationId)
+        .filter(_.toStationId === params.toStationId)
+        .delete
+      s"$n row deleted"
     }
   }
 }

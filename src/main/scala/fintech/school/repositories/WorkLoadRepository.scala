@@ -5,7 +5,7 @@ import fintech.school.models._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
-class WorkLoadRepository(city: String)(implicit executionContext: ExecutionContext){
+class WorkLoadRepository(city: String)(implicit executionContext: ExecutionContext) {
   val dataBase = new DatabaseConnection(city)
 
   def getById(wdLineId: Int): Future[Workload] = Future {
@@ -18,28 +18,41 @@ class WorkLoadRepository(city: String)(implicit executionContext: ExecutionConte
   def getWithFilters(wdLineId: Int, wdTime: Int): Future[Workload] = Future {
     dataBase.db withSession { implicit session ⇒
       val workloads = TableQuery[WorkloadsTable]
-      workloads.filter(_.lineId === wdLineId).filter(_.time === wdTime).list.head
+      workloads
+        .filter(_.lineId === wdLineId)
+        .filter(_.time === wdTime)
+        .list
+        .head
     }
   }
 
-  def create(params: Workload): Future[Boolean] = Future {
+  def create(params: Workload): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val workloads = TableQuery[WorkloadsTable]
-      workloads.insert(params) == 1
+      val n         = workloads.insert(params)
+      s"$n row inserted"
     }
   }
 
-  def update(params: Workload): Future[Boolean] = Future {
+  def update(params: Workload): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val workloads = TableQuery[WorkloadsTable]
-      workloads.filter(_.lineId === params.lineId).filter(_.time === params.time).update(params) == 1
+      val n = workloads
+        .filter(_.lineId === params.lineId)
+        .filter(_.time === params.time)
+        .update(params)
+      s"$n row updated"
     }
   }
 
-  def delete(wdLineId: Int, wdTime: Int): Future[Boolean] = Future {
+  def delete(wdLineId: Int, wdTime: Int): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val workloads = TableQuery[WorkloadsTable]
-      workloads.filter(_.lineId === wdLineId).filter(_.time === wdTime).delete == 1
+      val n = workloads
+        .filter(_.lineId === wdLineId)
+        .filter(_.time === wdTime)
+        .delete
+      s"$n row deleted"
     }
   }
 }

@@ -17,7 +17,7 @@ class StationRepository(city: String)(implicit executionContext: ExecutionContex
   }
 
   def getById(stId: Int): Future[Station] = Future {
-    dataBase.db withSession { implicit session ⇒
+    dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
       stations.filter(_.id === stId).list.head
     }
@@ -30,24 +30,27 @@ class StationRepository(city: String)(implicit executionContext: ExecutionContex
     }
   }
 
-  def create(params: Station): Future[Boolean] = Future {
+  def create(params: Station): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      stations.insert(params) == 1
+      val n        = stations.insert(params)
+      s"$n row inserted"
     }
   }
 
-  def update(stId: Int, params: Station): Future[Boolean] = Future {
+  def update(stId: Int, params: Station): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      stations.filter(_.id === stId).update(params) == 1
+      val n        = stations.filter(_.id === stId).update(params)
+      s"$n row updated"
     }
   }
 
-  def delete(stId: Int): Future[Boolean] = Future {
+  def delete(stId: Int): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      stations.filter(_.id === stId).delete == 1
+      val n = stations.filter(_.id === stId).delete
+      s"$n row deleted"
     }
   }
 }
