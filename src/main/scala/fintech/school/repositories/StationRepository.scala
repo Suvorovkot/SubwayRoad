@@ -49,7 +49,7 @@ class StationRepository(city: String)(implicit executionContext: ExecutionContex
   def delete(stId: Int): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      val n = stations.filter(_.id === stId).delete
+      val n        = stations.filter(_.id === stId).delete
       s"$n row deleted"
     }
   }
