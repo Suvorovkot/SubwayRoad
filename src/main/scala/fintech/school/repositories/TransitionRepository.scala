@@ -6,8 +6,8 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
 
-class TransitionRepository(implicit executionContext: ExecutionContext){
-  val dataBase = new DatabaseConnection
+class TransitionRepository(city: String)(implicit executionContext: ExecutionContext){
+  val dataBase = new DatabaseConnection(city)
 
   def getAll: Future[List[Transition]] = Future {
     dataBase.db withSession { implicit session =>

@@ -6,8 +6,8 @@ import fintech.school.models._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
-class StationRepository(implicit executionContext: ExecutionContext) {
-  val dataBase = new DatabaseConnection
+class StationRepository(city: String)(implicit executionContext: ExecutionContext) {
+  val dataBase = new DatabaseConnection(city)
 
   def getAll(): Future[List[Station]] = Future {
     dataBase.db withSession { implicit session =>

@@ -6,8 +6,8 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
 
-class SpanRepository(implicit executionContext: ExecutionContext){
-  val dataBase = new DatabaseConnection
+class SpanRepository(city: String)(implicit executionContext: ExecutionContext){
+  val dataBase = new DatabaseConnection(city)
 
   def getAll: Future[List[Span]] = Future {
     dataBase.db withSession { implicit session =>
