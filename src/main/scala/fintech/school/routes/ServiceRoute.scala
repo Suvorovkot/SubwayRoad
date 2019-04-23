@@ -4,7 +4,10 @@ import akka.http.scaladsl.server.Directives._
 import fintech.school.routefinder.Service
 import fintech.school.tools.Json4sSupport._
 
-class ServiceRoute(service: Service) {
+import scala.concurrent.ExecutionContext
+
+class ServiceRoute(city: String)(implicit executionContext: ExecutionContext) {
+  val service = new Service(city)
   def routes = {
     path("route") {
       parameters('from.as[String], 'to.as[String]) { (from, to) =>
