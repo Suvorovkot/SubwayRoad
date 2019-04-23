@@ -1,7 +1,10 @@
 package fintech.school.repositories
 
+import java.sql.Timestamp
+
 import fintech.school.controllers.DatabaseConnection
 import fintech.school.models._
+
 import scala.concurrent.{ExecutionContext, Future}
 import scala.slick.driver.PostgresDriver.simple._
 
@@ -15,7 +18,7 @@ class WorkLoadRepository(city: String)(implicit executionContext: ExecutionConte
     }
   }
 
-  def getWithFilters(wdLineId: Int, wdTime: Int): Future[Workload] = Future {
+  def getWithFilters(wdLineId: Int, wdTime: Timestamp): Future[Workload] = Future {
     dataBase.db withSession { implicit session ⇒
       val workloads = TableQuery[WorkloadsTable]
       workloads
@@ -45,7 +48,7 @@ class WorkLoadRepository(city: String)(implicit executionContext: ExecutionConte
     }
   }
 
-  def delete(wdLineId: Int, wdTime: Int): Future[String] = Future {
+  def delete(wdLineId: Int, wdTime: Timestamp): Future[String] = Future {
     dataBase.db withSession { implicit session =>
       val workloads = TableQuery[WorkloadsTable]
       val n = workloads
