@@ -16,7 +16,7 @@ class StationRepository(city: String)(implicit executionContext: ExecutionContex
     }
   }
 
-  def getByLine(lnId: Int): Future[List[Station]] = Future {
+  def getAllByLine(lnId: Int): Future[List[Station]] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
       stations.filter(_.lineId === lnId).list.sortBy(_.name)
@@ -26,14 +26,24 @@ class StationRepository(city: String)(implicit executionContext: ExecutionContex
   def getById(stId: Int): Future[Station] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      stations.filter(_.id === stId).list.head
+      val st       = stations.filter(_.id === stId).list
+      if (!st.isEmpty) {
+        st.head
+      } else {
+        throw new NoSuchElementException(s"Could not find station with id: $stId")
+      }
     }
   }
 
   def getByName(stName: String): Future[Station] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      stations.filter(_.name === stName).list.head
+      val st = stations.filter(_.name === stName).list
+      if (!st.isEmpty) {
+        st.head
+      } else {
+        throw new NoSuchElementException(s"Could not find station with name: $stName")
+      }
     }
   }
 
