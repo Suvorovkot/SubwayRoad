@@ -12,7 +12,14 @@ class StationRepository(city: String)(implicit executionContext: ExecutionContex
   def getAll(): Future[List[Station]] = Future {
     dataBase.db withSession { implicit session =>
       val stations = TableQuery[StationsTable]
-      stations.list.sortBy(_.lineId)
+      stations.list.sortBy(_.name)
+    }
+  }
+
+  def getByLine(lnId: Int): Future[List[Station]] = Future {
+    dataBase.db withSession { implicit session =>
+      val stations = TableQuery[StationsTable]
+      stations.filter(_.lineId === lnId).list.sortBy(_.name)
     }
   }
 
