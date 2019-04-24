@@ -40,6 +40,4 @@ class RouteMakerTest extends AsyncFlatSpec with Matchers {
   it should "return false for no existing path" in {
     RouteMaker.calculate(testList1,0).hasPath(5) shouldBe false
   }
-
-
 }

@@ -38,7 +38,9 @@ class Service(city: String)(implicit executionContext: ExecutionContext) {
       val element        = RouteResponseElement(fromStation, toStation, edge.weight, action)
       list = list :+ element
     }
-    Future.successful(RouteResponse(list, result.distToV(toId)))
+    val res = RouteResponse(list, result.distToV(toId))
+    println(res)
+    Future.successful(res)
   }
   private def getAction(from: Int, to: Int, transitionList: List[Transition]): String =
     if (transitionList.exists(elem => elem.fromStationId == from && elem.toStationId == to || elem.toStationId == from && elem.fromStationId == to)) {
