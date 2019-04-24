@@ -1,18 +1,17 @@
 package fintech.school.routefinder
 
+import java.sql.Timestamp
+
 import fintech.school.models.{Span, Station, Transition}
 import fintech.school.repositories.{SpanRepository, StationRepository, TransitionRepository}
-import org.scalatest.{AsyncFlatSpec, Matchers}
-import java.sql.Time
-
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.{AsyncFlatSpec, Matchers}
 
 
 class RepositoryTest extends AsyncFlatSpec with Matchers with ScalaFutures {
 
-  val stTime = new Time(6, 0, 0)
-  val endTime = new Time(0,0,0)
-
+  val stTime = Timestamp.valueOf("1970-01-01 06:00:00.0")
+  val endTime = Timestamp.valueOf("1970-01-01 00:00:00.0")
   behavior of "station repository"
 
   val stRep = new StationRepository("Volgograd")
