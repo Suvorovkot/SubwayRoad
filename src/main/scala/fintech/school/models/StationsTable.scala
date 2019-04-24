@@ -1,9 +1,9 @@
 package fintech.school.models
 
-import java.sql.Time
 
 import scala.slick.driver.PostgresDriver.simple._
 
+import java.sql.Time
 
 class StationsTable(tag: Tag) extends Table[Station](tag, "Station") {
   def lineId = column[Int]("Line_id")
