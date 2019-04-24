@@ -38,7 +38,7 @@ class TransitionRepository(city: String)(implicit executionContext: ExecutionCon
       val n = transitions
         .filter(_.fromStationId === params.fromStationId)
         .filter(_.toStationId === params.toStationId)
-        .update(params) == 1
+        .update(params)
       s"$n row updated"
     }
   }

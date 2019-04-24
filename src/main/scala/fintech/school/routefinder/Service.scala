@@ -21,9 +21,15 @@ class Service(city: String)(implicit executionContext: ExecutionContext) {
       toStation      <- stationRepository.getByName(to);
       stationList    <- stationRepository.getAll()
     ) yield {
-      val edges = new EdgeList().prepareSpans(spanList).prepareTransitions(transitionList)
-      val result = RouteMaker.calculate(edges, fromStation.id)
-      prepareResponse(result, toStation.id, transitionList, stationList)
+      if (fromStation.status != 1){
+        Future.successful(RouteResponse(List[RouteResponseElement](), 0.0, s"${fromStation.name} is closed"))
+      }else if (toStation.status != 1){
+        Future.successful(RouteResponse(List[RouteResponseElement](), 0.0, s"${toStation.name} is closed"))
+      } else {
+        val edges = new EdgeList().prepareSpans(spanList).prepareTransitions(transitionList)
+        val result = RouteMaker.calculate(edges, fromStation.id)
+        prepareResponse(result, toStation.id, transitionList, stationList)
+      }
     }
     result.flatten
   }
@@ -38,7 +44,8 @@ class Service(city: String)(implicit executionContext: ExecutionContext) {
       val element        = RouteResponseElement(fromStation, toStation, edge.weight, action)
       list = list :+ element
     }
-    Future.successful(RouteResponse(list, result.distToV(toId)))
+    val res = RouteResponse(list, result.distToV(toId), "Success")
+    Future.successful(res)
   }
   private def getAction(from: Int, to: Int, transitionList: List[Transition]): String =
     if (transitionList.exists(elem => elem.fromStationId == from && elem.toStationId == to || elem.toStationId == from && elem.fromStationId == to)) {

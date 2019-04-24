@@ -10,7 +10,7 @@ class Router(implicit executionContext: ExecutionContext) {
   private val piter = "StPetersburg"
   private val volgograd = "Volgograd"
 
-  val routes = {
+  val routes = pathPrefix("metro"){
     pathPrefix(piter) {
       new SpanRoute(piter).routes ~ new StationRoute(piter).routes ~ new TransitionRoute(piter).routes ~ new WorkLoadRoute(piter).routes ~ new ServiceRoute(piter).routes
     } ~

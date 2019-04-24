@@ -9,17 +9,17 @@ import scala.concurrent.ExecutionContext
 
 class TransitionRoute(city: String)(implicit executionContext: ExecutionContext) {
   val transitionRepository = new TransitionRepository(city)
-  def routes = pathPrefix("transition") {
+  def routes = pathPrefix("transitions") {
     path(IntNumber) { id =>
       get {
         complete(transitionRepository.getById(id))
-      } ~
-        patch {
-          entity(as[Transition]) { params =>
-            complete(transitionRepository.update(params))
-          }
-        }
+      }
     } ~
+      patch {
+        entity(as[Transition]) { params =>
+          complete(transitionRepository.update(params))
+        }
+      } ~
       get {
         complete(transitionRepository.getAll)
       } ~

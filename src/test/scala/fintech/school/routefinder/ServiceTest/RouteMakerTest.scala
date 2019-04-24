@@ -1,5 +1,6 @@
-package fintech.school.routefinder
+package fintech.school.routefinder.ServiceTest
 
+import fintech.school.routefinder.{Edge, EdgeList, RouteMaker}
 import org.scalatest.{AsyncFlatSpec, Matchers}
 
 class RouteMakerTest extends AsyncFlatSpec with Matchers {
@@ -40,6 +41,4 @@ class RouteMakerTest extends AsyncFlatSpec with Matchers {
   it should "return false for no existing path" in {
     RouteMaker.calculate(testList1,0).hasPath(5) shouldBe false
   }
-
-
 }
