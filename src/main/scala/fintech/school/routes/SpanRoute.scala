@@ -13,13 +13,13 @@ class SpanRoute(city: String)(implicit executionContext: ExecutionContext) {
     path(IntNumber) { id =>
       get {
         complete(spanRepository.getById(id))
-      } ~
-        patch {
-          entity(as[Span]) { params =>
-            complete(spanRepository.update(params))
-          }
-        }
+      }
     } ~
+      patch {
+        entity(as[Span]) { params =>
+          complete(spanRepository.update(params))
+        }
+      } ~
       get {
         complete(spanRepository.getAll)
       } ~

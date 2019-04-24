@@ -1,7 +1,7 @@
 package fintech.school.routes
 
 import akka.http.scaladsl.server.Directives._
-import fintech.school.models.Station
+import fintech.school.models.{Station, StationParams}
 import fintech.school.repositories.StationRepository
 import fintech.school.tools.Json4sSupport._
 
