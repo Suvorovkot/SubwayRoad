@@ -1,8 +1,8 @@
 package fintech.school.models
 
-import java.sql.Time
-
 import scala.slick.driver.PostgresDriver.simple._
+
+import java.sql.Time
 
 
 class WorkloadsTable(tag: Tag) extends Table[Workload](tag, "Workload") {
