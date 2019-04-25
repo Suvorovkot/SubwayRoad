@@ -30,4 +30,34 @@ class LineRepository(city: String)(implicit executionContext: ExecutionContext) 
       lines.filter(_.name === lnName).list.head
     }
   }
+
+  def getByColor(lnColor: String): Future[Line] = Future {
+    dataBase.db withSession { implicit session =>
+      val lines = TableQuery[LinesTable]
+      lines.filter(_.colour === lnColor).list.head
+    }
+  }
+  def create(params: Line): Future[String] = Future {
+    dataBase.db withSession { implicit session =>
+      val lines = TableQuery[LinesTable]
+      val n        = lines.insert(params)
+      s"$n row inserted"
+    }
+  }
+
+  def update(lnId: Int, params: Line): Future[String] = Future {
+    dataBase.db withSession { implicit session =>
+      val lines = TableQuery[LinesTable]
+      val n        = lines.filter(_.id === lnId).update(params)
+      s"$n row updated"
+    }
+  }
+
+  def delete(lnId: Int): Future[String] = Future {
+    dataBase.db withSession { implicit session =>
+      val lines = TableQuery[LinesTable]
+      val n        = lines.filter(_.id === lnId).delete
+      s"$n row deleted"
+    }
+  }
 }
