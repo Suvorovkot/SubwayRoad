@@ -1,12 +1,10 @@
 package fintech.school.routefinder
 
-import scala.concurrent.duration._
-import fintech.school.models.{Span, Station, Transition}
+import fintech.school.models.{Station, Transition}
 import fintech.school.repositories.{SpanRepository, StationRepository, TransitionRepository}
-import org.postgresql.util.PSQLException
+import fintech.school.routefinder
 
-import scala.concurrent.{Await, ExecutionContext, Future}
-import scala.util.{Failure, Success, Try}
+import scala.concurrent.{ExecutionContext, Future}
 
 class Service(city: String)(implicit executionContext: ExecutionContext) {
   private val stationRepository    = new StationRepository(city)
@@ -22,9 +20,9 @@ class Service(city: String)(implicit executionContext: ExecutionContext) {
       stationList    <- stationRepository.getAll()
     ) yield {
       if (fromStation.status != 1){
-        Future.successful(RouteResponse(List[RouteResponseElement](), 0.0, s"${fromStation.name} is closed"))
+        Future.successful(routefinder.RouteResponse(List[RouteResponseElement](), 0.0, s"${fromStation.name} is closed"))
       }else if (toStation.status != 1){
-        Future.successful(RouteResponse(List[RouteResponseElement](), 0.0, s"${toStation.name} is closed"))
+        Future.successful(routefinder.RouteResponse(List[RouteResponseElement](), 0.0, s"${toStation.name} is closed"))
       } else {
         val edges = new EdgeList().prepareSpans(spanList).prepareTransitions(transitionList)
         val result = RouteMaker.calculate(edges, fromStation.id)
@@ -44,7 +42,7 @@ class Service(city: String)(implicit executionContext: ExecutionContext) {
       val element        = RouteResponseElement(fromStation, toStation, edge.weight, action)
       list = list :+ element
     }
-    val res = RouteResponse(list, result.distToV(toId), "Success")
+    val res = routefinder.RouteResponse(list, result.distToV(toId), "Success")
     Future.successful(res)
   }
   private def getAction(from: Int, to: Int, transitionList: List[Transition]): String =

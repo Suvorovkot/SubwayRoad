@@ -1,4 +1,4 @@
-package fintech.school.routefinder
+package fintech.school.RepostitoriesTests
 
 import fintech.school.models.Transition
 import fintech.school.repositories.TransitionRepository

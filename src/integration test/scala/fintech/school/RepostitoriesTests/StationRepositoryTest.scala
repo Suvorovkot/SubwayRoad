@@ -1,11 +1,11 @@
-package fintech.school.routefinder
+package fintech.school.RepostitoriesTests
 
 import java.sql.Time
 
 import fintech.school.models.Station
 import fintech.school.repositories.StationRepository
-import org.scalatest.{AsyncFlatSpec, Matchers}
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.{AsyncFlatSpec, Matchers}
 
 class StationRepositoryTest extends AsyncFlatSpec with Matchers with ScalaFutures {
 

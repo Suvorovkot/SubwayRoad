@@ -1,9 +1,9 @@
-package fintech.school.routefinder
+package fintech.school.RepostitoriesTests
 
 import fintech.school.models.Span
 import fintech.school.repositories.SpanRepository
-import org.scalatest.{AsyncFlatSpec, Matchers}
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.{AsyncFlatSpec, Matchers}
 
 class SpanRepositoryTest extends AsyncFlatSpec with Matchers with ScalaFutures {
   behavior of "span repository"

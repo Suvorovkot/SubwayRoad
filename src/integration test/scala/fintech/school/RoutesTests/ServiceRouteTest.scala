@@ -1,4 +1,4 @@
-package fintech.school.routefinder.RouteTest
+package fintech.school.RoutesTests
 
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.testkit.ScalatestRouteTest

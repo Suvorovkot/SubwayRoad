@@ -1,4 +1,4 @@
-package fintech.school.routefinder.RouteTest
+package fintech.school.RoutesTests
 
 import akka.http.scaladsl.marshalling.Marshal
 import akka.http.scaladsl.model.{MessageEntity, StatusCodes}

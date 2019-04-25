@@ -1,9 +1,7 @@
-package fintech.school.routefinder
+package fintech.school.RepostitoriesTests
 
-import java.sql.Time
-
-import fintech.school.models.{Span, Line, Transition}
-import fintech.school.repositories.{SpanRepository, LineRepository, TransitionRepository}
+import fintech.school.models.Line
+import fintech.school.repositories.LineRepository
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{AsyncFlatSpec, Matchers}
 

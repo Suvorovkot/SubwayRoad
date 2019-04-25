@@ -1,4 +1,4 @@
-package fintech.school.routefinder.ServiceTest
+package fintech.school.ServiceTest
 
 import fintech.school.routefinder.{Edge, EdgeList, RouteMaker}
 import org.scalatest.{AsyncFlatSpec, Matchers}
