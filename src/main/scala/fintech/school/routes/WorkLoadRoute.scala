@@ -4,7 +4,7 @@ import akka.http.scaladsl.server.Directives._
 import fintech.school.models.Workload
 import fintech.school.repositories.WorkloadRepository
 import fintech.school.tools.Json4sSupport._
-import java.sql.Time
+import java.sql.Timestamp
 
 import scala.concurrent.ExecutionContext
 
@@ -16,7 +16,7 @@ class WorkLoadRoute(city: String)(implicit executionContext: ExecutionContext) {
         complete(workloadRepository.getById(id))
       } ~
         delete {
-          entity(as[Time]) { params =>
+          entity(as[Timestamp]) { params =>
             complete(workloadRepository.delete(id, params))
           }
         }
