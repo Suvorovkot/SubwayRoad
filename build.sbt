@@ -15,7 +15,6 @@ dockerCommands ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.0.5" % "test",
   "org.json4s" %% "json4s-jackson" % "3.6.5",
   "com.typesafe.akka" %% "akka-actor" % "2.5.21",
   "com.typesafe.akka" %% "akka-stream" % "2.5.21",
