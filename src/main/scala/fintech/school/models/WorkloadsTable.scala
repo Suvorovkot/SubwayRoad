@@ -2,13 +2,13 @@ package fintech.school.models
 
 import scala.slick.driver.PostgresDriver.simple._
 
-import java.sql.Timestamp
+import java.sql.Time
 
 
 class WorkloadsTable(tag: Tag) extends Table[Workload](tag, "Workload") {
   def lineId = column[Int]("Line_id")
 
-  def time = column[Timestamp]("time")
+  def time = column[Time]("time")
 
   def value = column[Int]("value")
 
